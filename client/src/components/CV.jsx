@@ -1,8 +1,7 @@
 import React from "react";
 
 const CV = () => {
-  const cvUrl = "link_den_file_cv_cua_ban.pdf";
-
+  const cvUrl = "cv.pdf";
   return (
     <section className="bg-yellow-50 p-8 rounded-3xl border-2 border-dashed border-yellow-400 text-center">
       <h2 className="text-2xl font-bold text-blue-900 mb-4">

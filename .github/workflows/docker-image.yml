@@ -38,7 +38,7 @@ jobs:
           script: |
             cd /opt/profile
             docker compose down
-            echo "IMAGE_FE_TAG=${{env.DOCKER_HUB_REPO}}${{env.IMAGE_BE_NAME}}:${{env.VERSION}} "> .env
+            echo "IMAGE_FE_TAG=${{env.DOCKER_HUB_REPO}}${{env.IMAGE_FE_NAME}}:${{env.VERSION}} "> .env
             echo "IMAGE_BE_TAG=${{env.DOCKER_HUB_REPO}}${{env.IMAGE_BE_NAME}}:${{env.VERSION}} ">> .env
             git pull
             docker compose pull

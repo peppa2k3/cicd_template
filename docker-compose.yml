@@ -20,7 +20,7 @@ services:
       - web
 
   backend:
-    image: ${ IMAGE_BE_TAG}
+    image: ${IMAGE_BE_TAG}
     container_name: profile_be
     env_file:
       - ./env/backend.env

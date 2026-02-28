@@ -1,10 +1,11 @@
 // services/api.js
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL =
+  `${import.meta.env.VITE_API_URL}/api` || "http://localhost:5000/api";
 
 const getAuthHeaders = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   return {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     ...(token && { Authorization: `Bearer ${token}` }),
   };
 };
@@ -13,19 +14,19 @@ const getAuthHeaders = () => {
 export const authAPI = {
   login: async (credentials) => {
     const response = await fetch(`${API_URL}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials),
     });
     return response.json();
   },
-  
+
   logout: () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
   },
-  
+
   isAuthenticated: () => {
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem("token");
   },
 };
 
@@ -35,23 +36,23 @@ export const userAPI = {
     const response = await fetch(`${API_URL}/user`);
     return response.json();
   },
-  
+
   updateUser: async (userData) => {
     const response = await fetch(`${API_URL}/user`, {
-      method: 'PUT',
+      method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(userData),
     });
     return response.json();
   },
-  
+
   uploadAvatar: async (file) => {
     const formData = new FormData();
-    formData.append('avatar', file);
-    
-    const token = localStorage.getItem('token');
+    formData.append("avatar", file);
+
+    const token = localStorage.getItem("token");
     const response = await fetch(`${API_URL}/user/avatar`, {
-      method: 'POST',
+      method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
@@ -63,51 +64,51 @@ export const userAPI = {
 export const projectsAPI = {
   getProjects: async (featured = false, limit = null) => {
     let url = `${API_URL}/projects?`;
-    if (featured) url += 'featured=true&';
+    if (featured) url += "featured=true&";
     if (limit) url += `limit=${limit}`;
-    
+
     const response = await fetch(url);
     return response.json();
   },
-  
+
   getProject: async (id) => {
     const response = await fetch(`${API_URL}/projects/${id}`);
     return response.json();
   },
-  
+
   createProject: async (projectData) => {
     const response = await fetch(`${API_URL}/projects`, {
-      method: 'POST',
+      method: "POST",
       headers: getAuthHeaders(),
       body: JSON.stringify(projectData),
     });
     return response.json();
   },
-  
+
   updateProject: async (id, projectData) => {
     const response = await fetch(`${API_URL}/projects/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: getAuthHeaders(),
       body: JSON.stringify(projectData),
     });
     return response.json();
   },
-  
+
   deleteProject: async (id) => {
     const response = await fetch(`${API_URL}/projects/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: getAuthHeaders(),
     });
     return response.json();
   },
-  
+
   uploadImages: async (id, files) => {
     const formData = new FormData();
-    files.forEach(file => formData.append('images', file));
-    
-    const token = localStorage.getItem('token');
+    files.forEach((file) => formData.append("images", file));
+
+    const token = localStorage.getItem("token");
     const response = await fetch(`${API_URL}/projects/${id}/images`, {
-      method: 'POST',
+      method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });

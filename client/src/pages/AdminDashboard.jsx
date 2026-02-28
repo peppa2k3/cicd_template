@@ -170,14 +170,12 @@ const UserEditor = ({ user, onUpdate }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
-            Nickname
+            Name
           </label>
           <input
             type="text"
-            value={formData.nickname || ""}
-            onChange={(e) =>
-              setFormData({ ...formData, nickname: e.target.value })
-            }
+            value={formData.name || ""}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             className="w-full px-4 py-2 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none"
           />
         </div>

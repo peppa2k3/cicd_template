@@ -1,3 +1,7 @@
+env:
+  DOCKER_HUB_REPO: peppa2k3/profile_website_fe
+  IMAGE_FE_NAME: profile_website_fe
+  IMAGE_BE_NAME: profile_website_be
 name: CI-CD
 
 on:
@@ -19,9 +23,12 @@ jobs:
           echo "VERSION=dev-${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: build & push client
         run: |
-          docker build -t peppa2k3/profile_website:${{env.VERSION}} ./client
-          docker push peppa2k3/profile_website:${{env.VERSION}}
-
+          docker build -t ${{env.DOCKER_HUB_REPO}}${{env.IMAGE_FE_NAME}}:${{env.VERSION}} ./client
+          docker push ${{env.DOCKER_HUB_REPO}}${{env.IMAGE_FE_NAME}}:${{env.VERSION}}
+      - name: build & push backend
+        run: |
+          docker build -t ${{env.DOCKER_HUB_REPO}}${{env.IMAGE_BE_NAME}}:${{env.VERSION}} ./backend
+          docker push ${{env.DOCKER_HUB_REPO}}${{env.IMAGE_BE_NAME}}:${{env.VERSION}}
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1
         with:
@@ -31,7 +38,9 @@ jobs:
           script: |
             cd /opt/profile
             docker compose down
-            echo "IMAGE_TAG=${{env.VERSION}} "> .env
+            echo "IMAGE_FE_TAG=${{env.DOCKER_HUB_REPO}}${{env.IMAGE_BE_NAME}}:${{env.VERSION}} "> .env
+            echo "IMAGE_BE_TAG=${{env.DOCKER_HUB_REPO}}${{env.IMAGE_BE_NAME}}:${{env.VERSION}} ">> .env
+            git pull
             docker compose pull
             docker compose up -d
             docker image prune -f

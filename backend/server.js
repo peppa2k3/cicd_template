@@ -89,6 +89,9 @@ const initAdmin = async () => {
 };
 
 // Routes
+app.use("/", (req, res) => {
+  return res.send("profile DND");
+});
 app.use("/api/user", userRouter);
 app.use("/api/projects", projectRouter);
 app.use("/api/auth", authRouter);

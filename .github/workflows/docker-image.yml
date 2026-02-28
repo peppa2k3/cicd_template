@@ -1,5 +1,5 @@
 env:
-  DOCKER_HUB_REPO: peppa2k3/profile_website_fe
+  DOCKER_HUB_REPO: peppa2k3/
   IMAGE_FE_NAME: profile_website_fe
   IMAGE_BE_NAME: profile_website_be
 name: CI-CD

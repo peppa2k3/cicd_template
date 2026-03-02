@@ -1,8 +1,11 @@
 // services/api.js
-const API_URL =
-  `${import.meta.env.VITE_API_URL}/api` ||
-  "https://api.profile.dangngochai.io.vn/api";
-
+//
+let BE_URL = import.meta.env.VITE_API_URL;
+if (!BE_URL) {
+  console.log("can not find be url");
+  BE_URL = "https://api.profile.dangngochai.io.vn";
+}
+const API_URL = `${BE_URL}/api`;
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
   return {

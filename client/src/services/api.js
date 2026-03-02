@@ -178,3 +178,8 @@ export const experiencesAPI = {
     });
   },
 };
+// === CONTACT API ===
+export const contactAPI = {
+  sendMessage: (data) =>
+    axios.post(`${API_URL}/contact`, data).then((res) => res.data),
+};

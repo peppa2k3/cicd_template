@@ -12,6 +12,7 @@ import userRouter from "./routes/userRoutes.js";
 import projectRouter from "./routes/projectRoutes.js";
 import authRouter from "./routes/authRoutes.js";
 import experienceRouter from "./routes/experienceRoutes.js";
+import contactRouter from "./routes/contactRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -65,7 +66,7 @@ app.use("/api/user", userRouter);
 app.use("/api/projects", projectRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/experiences", experienceRouter);
-
+app.use("/api/contact", contactRouter);
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {

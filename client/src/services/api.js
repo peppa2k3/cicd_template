@@ -165,7 +165,11 @@ export const experiencesAPI = {
   },
 
   updateExperience: (id, data) =>
-    axios.put(`${API_URL}/experiences/${id}`, data).then((res) => res.data),
+    axios
+      .put(`${API_URL}/experiences/${id}`, data, {
+        headers: getAuthHeaders(),
+      })
+      .then((res) => res.data),
   deleteExperience: (id) => {
     axios.delete(`${API_URL}/experiences/${id}`, {
       headers: {

@@ -23,7 +23,7 @@ jobs:
           echo "VERSION=dev-${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: build & push client
         run: |
-          docker build --build-arg VITE_API_URL=${{ secrets.VITE_API_URL }} -t ${{env.DOCKER_HUB_REPO}}${{env.IMAGE_FE_NAME}}:${{env.VERSION}} ./client
+          docker build  -t ${{env.DOCKER_HUB_REPO}}${{env.IMAGE_FE_NAME}}:${{env.VERSION}} ./client
           docker push ${{env.DOCKER_HUB_REPO}}${{env.IMAGE_FE_NAME}}:${{env.VERSION}}
       - name: build & push backend
         run: |

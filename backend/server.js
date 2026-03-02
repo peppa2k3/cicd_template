@@ -11,6 +11,7 @@ import Admin from "./models/Admin.js";
 import userRouter from "./routes/userRoutes.js";
 import projectRouter from "./routes/projectRoutes.js";
 import authRouter from "./routes/authRoutes.js";
+import experienceRouter from "./routes/experienceRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -63,6 +64,8 @@ const initAdmin = async () => {
 app.use("/api/user", userRouter);
 app.use("/api/projects", projectRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/experiences", experienceRouter);
+
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {

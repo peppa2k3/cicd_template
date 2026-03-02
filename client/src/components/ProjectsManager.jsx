@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Plus, Edit2, Trash2 } from "lucide-react";
 import ProjectForm from "./ProjectForm";
+import { projectsAPI } from "../services/api";
 
 const ProjectsManager = ({ projects, onRefresh }) => {
   const [showModal, setShowModal] = useState(false);

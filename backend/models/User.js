@@ -27,6 +27,16 @@ const userSchema = new mongoose.Schema({
     primarycolor: { type: String, default: "#1e3a8a" },
     secondarycolor: { type: String, default: "#fbbf24" },
   },
+  cvs: [
+    {
+      filename: String,
+      originalname: String,
+      path: String,
+      uploadedAt: { type: Date, default: Date.now },
+      isActive: { type: Boolean, default: false },
+    },
+  ],
+  activeCV: String, // link nhanh để frontend dùng
 });
 
 const User = mongoose.model("User", userSchema);

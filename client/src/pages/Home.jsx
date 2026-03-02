@@ -89,8 +89,9 @@ const Home = () => {
                       LinkedIn
                     </a>
                   )}
+                  {/* Download CV */}
                   <a
-                    href="/cv.pdf"
+                    href={user?.activeCV || "/cv.pdf"} // activeCV từ backend
                     download
                     className="flex items-center gap-2 border-2 border-purple-600 text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-purple-600 hover:text-white transition transform hover:scale-105 shadow-lg"
                   >

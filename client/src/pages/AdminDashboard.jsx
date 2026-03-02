@@ -1,11 +1,13 @@
 // client/src/pages/AdminDashboard.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { LogOut, User, FolderGit2 } from "lucide-react";
+import { LogOut, User, FolderGit2, Briefcase, FileText } from "lucide-react";
 import { authAPI, userAPI, projectsAPI } from "../services/api";
 
 import UserEditor from "../components/UserEditor";
 import ProjectsManager from "../components/ProjectsManager";
+import ExperiencesManager from "../components/ExperiencesManager"; // ← mới
+import CVManager from "../components/CVManager"; // ← mới
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("user");
@@ -61,36 +63,39 @@ const AdminDashboard = () => {
             onClick={handleLogout}
             className="flex items-center gap-3 px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-medium transition"
           >
-            <LogOut size={20} />
-            Đăng xuất
+            <LogOut size={20} /> Đăng xuất
           </button>
         </div>
 
         {/* Tabs */}
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-          <div className="flex border-b">
-            <button
-              onClick={() => setActiveTab("user")}
-              className={`flex-1 py-6 flex items-center justify-center gap-3 font-semibold text-lg transition-all ${
-                activeTab === "user"
-                  ? "text-blue-600 border-b-4 border-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              <User size={24} />
-              Thông tin cá nhân
-            </button>
-            <button
-              onClick={() => setActiveTab("projects")}
-              className={`flex-1 py-6 flex items-center justify-center gap-3 font-semibold text-lg transition-all ${
-                activeTab === "projects"
-                  ? "text-blue-600 border-b-4 border-blue-600"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              <FolderGit2 size={24} />
-              Quản lý Dự án ({projects.length})
-            </button>
+          <div className="flex border-b flex-wrap">
+            {[
+              { key: "user", label: "Thông tin cá nhân", icon: User },
+              {
+                key: "projects",
+                label: `Dự án (${projects.length})`,
+                icon: FolderGit2,
+              },
+              { key: "experiences", label: "Kinh nghiệm", icon: Briefcase },
+              { key: "cvs", label: "Quản lý CV", icon: FileText },
+            ].map((tab) => {
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.key}
+                  onClick={() => setActiveTab(tab.key)}
+                  className={`flex-1 py-6 flex items-center justify-center gap-3 font-semibold text-lg transition-all ${
+                    activeTab === tab.key
+                      ? "text-blue-600 border-b-4 border-blue-600"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  <Icon size={24} />
+                  {tab.label}
+                </button>
+              );
+            })}
           </div>
 
           <div className="p-8">
@@ -99,6 +104,12 @@ const AdminDashboard = () => {
             )}
             {activeTab === "projects" && (
               <ProjectsManager projects={projects} onRefresh={fetchData} />
+            )}
+            {activeTab === "experiences" && (
+              <ExperiencesManager onRefresh={fetchData} />
+            )}
+            {activeTab === "cvs" && (
+              <CVManager user={user} onUpdate={setUser} />
             )}
           </div>
         </div>

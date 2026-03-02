@@ -109,7 +109,7 @@ const AdminLogin = () => {
           </form>
 
           <div className="text-center text-sm text-gray-500">
-            Default: admin / password
+            Default: xxxx / xxxx
           </div>
         </div>
       </div>

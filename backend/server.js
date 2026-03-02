@@ -27,15 +27,6 @@ app.use("/uploads", express.static("uploads"));
 // app.use(cors(corsOptions));
 // Kết nối tới MongoDB
 console.log("MONGO_URI env :", process.env.MONGODB_URI);
-// mongoose.connect("mongodb://root:root@mongo:27017/?authSource=admin", {
-//   dbName: "viesocial",
-// });
-// mongoose
-//   .connect(process.env.MONGO_URI, {
-//     dbName: "viesocial",
-//   })
-//   .then(() => console.log("✅ Connected to MongoDB x"))
-//   .catch((err) => console.error("❌ MongoDB connection error:", err));
 async function ConnectDB() {
   try {
     await mongoose
@@ -50,25 +41,6 @@ async function ConnectDB() {
   }
 }
 ConnectDB();
-// MongoDB Connection
-// mongoose.connect(
-//   process.env.MONGODB_URI || "mongodb://localhost:27017/portfolio",
-//   {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   },
-// );
-
-// File upload configuration
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-const upload = multer({ storage });
 
 // JWT Secret
 const JWT_SECRET =
@@ -81,7 +53,6 @@ const initAdmin = async () => {
     if (!existingAdmin) {
       const hashedPassword = await bcrypt.hash("1234", 10);
       await Admin.create({ username: "admin", password: hashedPassword });
-      console.log("Default admin created: admin/password");
     }
   } catch (error) {
     console.error("Error initializing admin:", error);

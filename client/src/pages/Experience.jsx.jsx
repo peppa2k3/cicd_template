@@ -43,7 +43,9 @@ const Experience = () => {
             <p className="text-gray-600 mb-4">{exp.description}</p>
 
             <div>
-              <h4 className="font-semibold text-gray-900 mb-2">Thành tựu:</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">
+                Achievements:
+              </h4>
               <ul className="list-disc list-inside space-y-1 text-gray-600">
                 {exp.achievements.map((a, i) => (
                   <li key={i}>{a}</li>

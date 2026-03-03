@@ -1,12 +1,16 @@
+// client/src/pages/ProjectDetail.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, Github, Calendar } from "lucide-react";
 import { projectsAPI } from "../services/api";
 
+import ImageModal from "../components/ImageModal"; // ← THÊM DÒNG NÀY
+
 const ProjectDetail = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null); // ← State cho modal
 
   useEffect(() => {
     const fetchProject = async () => {
@@ -19,14 +23,13 @@ const ProjectDetail = () => {
         setLoading(false);
       }
     };
-
     fetchProject();
   }, [id]);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600" />
       </div>
     );
   }
@@ -34,9 +37,7 @@ const ProjectDetail = () => {
   if (!project) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12 text-center">
-        <h2 className="text-2xl font-bold text-gray-900">
-         Project not found
-        </h2>
+        <h2 className="text-2xl font-bold text-gray-900">Project not found</h2>
         <Link
           to="/projects"
           className="text-blue-600 hover:underline mt-4 inline-block"
@@ -111,7 +112,7 @@ const ProjectDetail = () => {
         </div>
       </div>
 
-      {/* Images Gallery */}
+      {/* Images Gallery - Click để mở modal */}
       {images.length > 0 && (
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Screenshots</h2>
@@ -119,12 +120,13 @@ const ProjectDetail = () => {
             {images.map((img, index) => (
               <div
                 key={index}
-                className="aspect-video rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition"
+                className="aspect-video rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition cursor-pointer group"
+                onClick={() => setSelectedImage(img)}
               >
                 <img
                   src={img}
                   alt={`Screenshot ${index + 1}`}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
             ))}
@@ -161,6 +163,13 @@ const ProjectDetail = () => {
           <p className="text-gray-600 whitespace-pre-wrap">{project.another}</p>
         </div>
       )}
+
+      {/* IMAGE MODAL */}
+      <ImageModal
+        isOpen={!!selectedImage}
+        imageSrc={selectedImage}
+        onClose={() => setSelectedImage(null)}
+      />
     </div>
   );
 };

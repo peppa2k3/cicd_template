@@ -35,13 +35,13 @@ const ProjectDetail = () => {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12 text-center">
         <h2 className="text-2xl font-bold text-gray-900">
-          Không tìm thấy dự án
+         Project not found
         </h2>
         <Link
           to="/projects"
           className="text-blue-600 hover:underline mt-4 inline-block"
         >
-          Quay lại danh sách dự án
+          Back
         </Link>
       </div>
     );
@@ -57,7 +57,7 @@ const ProjectDetail = () => {
         className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold mb-8 transition"
       >
         <ArrowLeft size={20} />
-        Quay lại
+        Back
       </Link>
 
       {/* Header */}
@@ -136,7 +136,7 @@ const ProjectDetail = () => {
       {project.subdesc && project.subdesc.length > 0 && (
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            Chi tiết dự án
+            Project details
           </h2>
           <div className="space-y-6">
             {project.subdesc.map((section, index) => (
@@ -156,7 +156,7 @@ const ProjectDetail = () => {
       {project.another && (
         <div className="mt-8 bg-gray-50 rounded-2xl p-8">
           <h3 className="text-xl font-bold text-gray-900 mb-4">
-            Thông tin bổ sung
+            Additional information
           </h3>
           <p className="text-gray-600 whitespace-pre-wrap">{project.another}</p>
         </div>

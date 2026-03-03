@@ -54,7 +54,7 @@ const Home = () => {
 
               {/* Info */}
               <div className="flex-1 text-center md:text-left space-y-4">
-                <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <h1 className="text-4xl md:text-6xl font-bold pb-3 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   {user?.firstname} {user?.lastname}
                 </h1>
                 <p className="text-2xl md:text-3xl text-gray-600 font-medium">
@@ -62,7 +62,7 @@ const Home = () => {
                 </p>
                 <p className="text-gray-600 text-lg max-w-2xl">
                   {user?.another ||
-                    "Đam mê xây dựng các ứng dụng web tối ưu và trải nghiệm người dùng mượt mà."}
+                    "Passionate about building optimized web applications and smooth user experiences."}
                 </p>
 
                 {/* Social Links */}

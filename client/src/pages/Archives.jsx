@@ -29,11 +29,43 @@ const Archives = () => {
     );
   }
 
-  // Group by year
-  const projectsByYear = projects.reduce((acc, project) => {
-    const year = project.duration?.start?.split("/")[2] || "2024";
+  // Parse mọi dạng: 07/2025 | 07-2025 | 2025
+  const parseStartDate = (project) => {
+    const start = project?.duration?.start;
+    if (!start) return new Date(0);
+
+    // Replace - thành / để thống nhất
+    const normalized = start.replace("-", "/");
+
+    const parts = normalized.split("/");
+
+    // Nếu có dạng MM/YYYY
+    if (parts.length === 2) {
+      const [month, year] = parts.map(Number);
+      return new Date(year, month - 1);
+    }
+
+    // Nếu chỉ có YYYY
+    if (parts.length === 1) {
+      return new Date(Number(parts[0]), 0);
+    }
+
+    return new Date(0);
+  };
+
+  // 1️⃣ Sort trước
+  const sortedProjects = [...projects].sort(
+    (a, b) => parseStartDate(b) - parseStartDate(a),
+  );
+
+  // 2️⃣ Group theo year
+  const projectsByYear = sortedProjects.reduce((acc, project) => {
+    const date = parseStartDate(project);
+    const year = date.getFullYear();
+
     if (!acc[year]) acc[year] = [];
     acc[year].push(project);
+
     return acc;
   }, {});
 
@@ -44,7 +76,7 @@ const Archives = () => {
           Archives
         </h1>
         <p className="text-gray-600 text-lg">
-          Lưu trữ tất cả các dự án theo thời gian
+         Archive all projects by time
         </p>
       </div>
 

@@ -44,7 +44,7 @@ const Projects = () => {
             My Projects
           </h1>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Khám phá các dự án tôi đã xây dựng với đam mê và sáng tạo
+            Explore the projects I've built with passion and creativity.
           </p>
         </div>
 
@@ -142,7 +142,7 @@ const Projects = () => {
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-gray-400 text-xl">Không tìm thấy dự án nào</p>
+            <p className="text-gray-400 text-xl">Project not found</p>
           </div>
         )}
       </div>

@@ -162,7 +162,7 @@ const UserEditor = ({ user, onUpdate }) => {
                 {key}
               </label>
               <input
-                type="url"
+                type={key === "zalo" ? "text" : "url"}
                 name={key}
                 value={formData.contact?.[key] || ""}
                 onChange={handleContactChange}

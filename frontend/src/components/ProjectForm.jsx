@@ -17,7 +17,14 @@ const ProjectForm = ({ project, onSuccess, onClose }) => {
     subdesc: [],
   });
 
-  const [imageFiles, setImageFiles] = useState({}); // tạm lưu file để preview
+  // Lưu file thật theo từng field (chỉ những ảnh người dùng chọn mới)
+  const [selectedImageFiles, setSelectedImageFiles] = useState({
+    image1: null,
+    image2: null,
+    image3: null,
+    image4: null,
+  });
+
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -38,6 +45,14 @@ const ProjectForm = ({ project, onSuccess, onClose }) => {
           image4: "",
         },
         subdesc: project.subdesc || [],
+      });
+
+      // Reset file khi chỉnh sửa (chỉ upload những ảnh mới chọn)
+      setSelectedImageFiles({
+        image1: null,
+        image2: null,
+        image3: null,
+        image4: null,
       });
     }
   }, [project]);
@@ -67,8 +82,9 @@ const ProjectForm = ({ project, onSuccess, onClose }) => {
   const handleImageFile = (e, field) => {
     const file = e.target.files[0];
     if (file) {
-      setImageFiles((prev) => ({ ...prev, [field]: file }));
-      // preview tạm thời
+      setSelectedImageFiles((prev) => ({ ...prev, [field]: file }));
+
+      // Preview tạm thời bằng blob URL
       setFormData((prev) => ({
         ...prev,
         images: { ...prev.images, [field]: URL.createObjectURL(file) },
@@ -101,14 +117,40 @@ const ProjectForm = ({ project, onSuccess, onClose }) => {
     setSaving(true);
 
     try {
+      // Tạo payload sạch: giữ URL thật của ảnh cũ, bỏ blob URL tạm thời
       const payload = { ...formData };
-      // TODO: upload images thực tế (nếu backend cần FormData thì chuyển sang FormData)
+      const cleanImages = { ...payload.images };
+
+      Object.keys(cleanImages).forEach((key) => {
+        const url = cleanImages[key];
+        if (url && url.startsWith("blob:")) {
+          cleanImages[key] = ""; // backend sẽ set lại sau khi upload
+        }
+      });
+      payload.images = cleanImages;
+
+      let projectId = project?._id;
+
+      // 1. Tạo hoặc cập nhật project metadata trước
       if (project) {
         await projectsAPI.updateProject(project._id, payload);
       } else {
-        await projectsAPI.createProject(payload);
+        const result = await projectsAPI.createProject(payload);
+        projectId = result._id || result.id || result.project?._id;
       }
+
+      // 2. Upload ảnh (nếu có file mới được chọn)
+      const filesToUpload = Object.values(selectedImageFiles).filter(
+        (file) => file !== null,
+      );
+
+      if (projectId && filesToUpload.length > 0) {
+        console.log("Uploading images for project:", projectId);
+        await projectsAPI.uploadImages(projectId, filesToUpload);
+      }
+
       onSuccess();
+      onClose?.(); // Đóng modal sau khi thành công
     } catch (err) {
       console.error(err);
       alert("Lỗi khi lưu dự án!");

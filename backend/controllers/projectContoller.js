@@ -1,5 +1,6 @@
 // Project Routes
 import Project from "../models/Project.js";
+import { BASE_URL } from "../server.js";
 
 const getProjects = async (req, res) => {
   try {
@@ -81,7 +82,7 @@ const postProjectImages = async (req, res) => {
 
     req.files.forEach((file, index) => {
       const key = `image${index + 1}`;
-      project.images[key] = `/uploads/${file.filename}`;
+      project.images[key] = ` ${BASE_URL}/uploads/${file.filename}`;
     });
 
     await project.save();

@@ -27,6 +27,7 @@ const AdminLogin = () => {
         setError(response.message || "Đăng nhập thất bại");
       }
     } catch (error) {
+      console.error("Error:", error);
       setError("Có lỗi xảy ra. Vui lòng thử lại.");
     } finally {
       setLoading(false);

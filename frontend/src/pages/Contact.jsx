@@ -48,6 +48,7 @@ const Contact = () => {
       });
       setForm({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
+      console.error("Error:", error);
       setStatus({
         loading: false,
         success: false,

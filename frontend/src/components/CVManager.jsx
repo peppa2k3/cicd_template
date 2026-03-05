@@ -17,7 +17,8 @@ const CVManager = ({ user, onUpdate }) => {
       const res = await userAPI.uploadCV(file); // FormData
       onUpdate({ ...user, cvs: res.cvs });
       alert("Upload CV thành công!");
-    } catch (err) {
+    } catch (error) {
+      console.error("Error:", error);
       alert("Upload thất bại!");
     } finally {
       setUploading(false);

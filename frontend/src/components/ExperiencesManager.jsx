@@ -7,15 +7,13 @@ const ExperiencesManager = ({ onRefresh }) => {
   const [experiences, setExperiences] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
-
-  useEffect(() => {
-    fetchExperiences();
-  }, []);
-
   const fetchExperiences = async () => {
     const data = await experiencesAPI.getExperiences();
     setExperiences(data);
   };
+  useEffect(() => {
+    fetchExperiences();
+  }, []);
 
   const handleSuccess = () => {
     setShowForm(false);

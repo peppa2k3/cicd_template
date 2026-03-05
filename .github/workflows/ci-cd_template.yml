@@ -403,9 +403,9 @@ jobs:
           echo "| Branch   | \`${{ github.ref_name }}\` |" >> $GITHUB_STEP_SUMMARY
 
       # Uncomment để gửi Slack notification
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_TITLE: "Deployment ${{ job.status }}"
-          SLACK_MESSAGE: "Branch: ${{ github.ref_name }} | Commit: ${{ github.sha }}"
+      # - name: Slack Notification
+      #   uses: rtCamp/action-slack-notify@v2
+      #   env:
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      #     SLACK_TITLE: "Deployment ${{ job.status }}"
+      #     SLACK_MESSAGE: "Branch: ${{ github.ref_name }} | Commit: ${{ github.sha }}"

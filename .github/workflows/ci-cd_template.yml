@@ -6,11 +6,11 @@ env:
   # VPS project dir
   VPS_PROJECT_DIR: /opt/repo/cicd_template
   # docker compose service name
-  SERVICE_FE: frontend
-  SERVICE_BE: backend
+  COMPOSE_SERVICE_FE: frontend
+  COMPOSE_SERVICE_BE: backend
   # .env variables name
-  ENV_NAME_FE: IMAGE_FE
-  ENV_NAME_BE: IMAGE_BE
+  ENV_KEY_FE: IMAGE_FE
+  ENV_KEY_BE: IMAGE_BE
 
 # CICD workflow name
 name: CI-CD-Template
@@ -281,7 +281,8 @@ jobs:
             cd ${{ env.VPS_PROJECT_DIR }}
 
             echo " Pulling latest code..."
-            git pull origin ${{ github.ref_name }} || git pull origin develop
+            git fetch && git checkout ${{ github.ref_name }} && git pull
+
 
             BRANCH=$(echo "${{ github.ref_name }}" | sed 's/\//-/g')
             VERSION="${BRANCH}-${GITHUB_SHA::7}"
@@ -345,7 +346,7 @@ jobs:
             cd ${{ env.VPS_PROJECT_DIR }}
 
             echo " Pulling latest code..."
-            git pull origin ${{ github.ref_name }} || git pull origin develop
+            git fetch && git checkout ${{ github.ref_name }} && git pull
 
             BRANCH=$(echo "${{ github.ref_name }}" | sed 's/\//-/g')
             VERSION="${BRANCH}-${GITHUB_SHA::7}"

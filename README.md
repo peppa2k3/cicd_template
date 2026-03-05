@@ -1,30 +1,11 @@
 # Profile_website
-## my profile website
-portfolio/
-├── backend/
-│   ├── server.js
-│   ├── package.json
-│   ├── .env
-│   └── uploads/           # Thư mục lưu ảnh
-├── client/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   └── ProtectedRoute.jsx
-│   │   ├── pages/
-│   │   │   ├── Home.jsx
-│   │   │   ├── Projects.jsx
-│   │   │   ├── ProjectDetail.jsx
-│   │   │   ├── Experience.jsx
-│   │   │   ├── Contact.jsx
-│   │   │   ├── Archives.jsx
-│   │   │   ├── AdminLogin.jsx
-│   │   │   └── AdminDashboard.jsx
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── public/
-│   │   └── cv.pdf         # File CV để download
-│   ├── package.json
-│   └── vite.config.js
+
+## CICD testing project
+
+### CICD chart
+
+![CICD chart flow](https://api.profile.dangngochai.io.vn/uploads/1772698932923-cicd.png)
+
+### CICD demo result
+    
+![Demo CICD result](https://api.profile.dangngochai.io.vn/uploads/1772699189144-demo_reesult_cicd.png)
